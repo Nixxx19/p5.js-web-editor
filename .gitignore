@@ -24,3 +24,11 @@ duplicates.json
 coverage
 
 *.tsbuildinfo
+
+# Cypress artifacts
+cypress/screenshots
+cypress/videos
+
+# Playwright artifacts (not used in this project)
+test-results/
+playwright-report/
