@@ -15,6 +15,8 @@ type OverlayProps = {
   title?: string;
   ariaLabel?: string;
   isFixedHeight?: boolean;
+  /** Optional data-testid for E2E tests */
+  dataTestId?: string;
 };
 
 export const Overlay = ({
@@ -22,6 +24,7 @@ export const Overlay = ({
   ariaLabel = 'modal',
   children,
   closeOverlay,
+  dataTestId,
   isFixedHeight = false,
   title = 'Modal'
 }: OverlayProps) => {
@@ -58,6 +61,7 @@ export const Overlay = ({
   return (
     <div
       className={`overlay ${isFixedHeight ? 'overlay--is-fixed-height' : ''}`}
+      {...(dataTestId ? { 'data-testid': dataTestId } : {})}
     >
       <div className="overlay__content">
         <section
@@ -72,6 +76,7 @@ export const Overlay = ({
               {isDesktop && actions}
               <button
                 className="overlay__close-button"
+                data-testid="overlay-close-button"
                 onClick={close}
                 aria-label={t('Overlay.AriaLabel', { title })}
               >

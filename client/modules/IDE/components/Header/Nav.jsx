@@ -182,6 +182,7 @@ const ProjectMenu = () => {
         </MenubarItem>
         <MenubarItem
           id="file-save"
+          data-testid="nav-file-save"
           isDisabled={
             !user.authenticated ||
             !isLoginEnabled ||

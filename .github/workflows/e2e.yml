@@ -1,0 +1,62 @@
+# E2E tests (Cypress). Runs only on pull requests so you can see CI results before merging.
+# Does not run on push — only when a PR is opened or updated.
+name: E2E
+
+on:
+  pull_request:
+    branches: [develop, main]
+
+jobs:
+  e2e:
+    name: E2E (Cypress)
+    runs-on: ubuntu-latest
+    services:
+      mongodb:
+        image: mongo:6
+        ports:
+          - 27017:27017
+        options: >-
+          --health-cmd "mongosh --eval 'db.runCommand({ ping: 1 })'"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18.20.x'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Start app
+        env:
+          NODE_ENV: development
+          PORT: 8000
+          PREVIEW_PORT: 8002
+          MONGO_URL: mongodb://localhost:27017/p5editor_e2e
+          SESSION_SECRET: e2e-ci-session-secret
+        run: |
+          npm run start &
+          echo "Waiting for app on http://localhost:8000 ..."
+          for i in $(seq 1 60); do
+            if curl -s -o /dev/null -w "%{http_code}" http://localhost:8000 | grep -q 200; then
+              echo "App is up."
+              break
+            fi
+            if [ "$i" -eq 60 ]; then
+              echo "App failed to start in time."
+              exit 1
+            fi
+            sleep 2
+          done
+
+      - name: Run E2E tests
+        env:
+          BASE_URL: http://localhost:8000
+        run: npm run test:e2e

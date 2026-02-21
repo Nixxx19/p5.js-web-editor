@@ -146,6 +146,16 @@
       "rules": {
         "import/no-extraneous-dependencies": "off"
       }
+    },
+    {
+      "files": ["cypress/**/*.js", "cypress.config.js"],
+      "env": {
+        "cypress/globals": true
+      },
+      "plugins": ["cypress"],
+      "rules": {
+        "import/no-extraneous-dependencies": "off"
+      }
     }
   ]
 }

@@ -15,6 +15,8 @@
     "test": "NODE_ENV=test jest",
     "test:watch": "NODE_ENV=test jest --watch",
     "test:ci": "npm run lint && npm run test",
+    "test:e2e": "cypress run",
+    "e2e": "cypress open",
     "fetch-examples": "cross-env NODE_ENV=development node ./server/scripts/fetch-examples.js",
     "fetch-examples-gg": "cross-env NODE_ENV=development node ./server/scripts/fetch-examples-gg.js",
     "fetch-examples-ml5": "cross-env NODE_ENV=development node ./server/scripts/fetch-examples-ml5.js",
@@ -85,6 +87,9 @@
         },
         "testMatch": [
           "<rootDir>/client/**/*.test.(js|jsx|ts|tsx)"
+        ],
+        "testPathIgnorePatterns": [
+          "<rootDir>/e2e/"
         ]
       }
     ]
@@ -163,9 +168,11 @@
     "babel-plugin-transform-react-remove-prop-types": "^0.2.12",
     "css-loader": "^6.11.0",
     "css-minimizer-webpack-plugin": "^3.4.1",
+    "cypress": "^13.15.0",
     "eslint": "^7.32.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^7.2.0",
+    "eslint-plugin-cypress": "^2.15.1",
     "eslint-plugin-import": "^2.23.4",
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-prettier": "^3.4.0",

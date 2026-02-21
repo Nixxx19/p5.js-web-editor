@@ -85,6 +85,7 @@ export default function IDEOverlays() {
       )}
       {errorType && (
         <Overlay
+          dataTestId="error-modal"
           title={t('Common.Error')}
           ariaLabel={t('Common.ErrorARIA')}
           closeOverlay={() => dispatch(hideErrorModal())}

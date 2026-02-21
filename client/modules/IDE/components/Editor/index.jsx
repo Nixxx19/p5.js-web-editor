@@ -155,6 +155,11 @@ class Editor extends React.Component {
       }
     });
 
+    // Expose CodeMirror instance for E2E tests (e.g. setValue to set editor content)
+    if (this.codemirrorContainer) {
+      this.codemirrorContainer._cm = this._cm;
+    }
+
     this.hinter = new Fuse(hinter.p5Hinter, {
       threshold: 0.05,
       keys: ['text']
@@ -649,6 +654,7 @@ class Editor extends React.Component {
                   this.codemirrorContainer = element;
                 }}
                 className={editorHolderClass}
+                data-testid="code-editor"
               />
               {this.props.file.url ? (
                 <AssetPreview
@@ -678,6 +684,7 @@ class Editor extends React.Component {
                   ref={(element) => {
                     this.codemirrorContainer = element;
                   }}
+                  data-testid="code-editor"
                 />
                 {this.props.file.url ? (
                   <AssetPreview

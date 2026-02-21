@@ -56,7 +56,7 @@ const Toolbar = (props) => {
   );
 
   return (
-    <div className="toolbar">
+    <div className="toolbar" data-testid="toolbar">
       <button
         className="toolbar__play-sketch-button"
         onClick={() => {
@@ -73,6 +73,7 @@ const Toolbar = (props) => {
       <button
         className={playButtonClass}
         id="play-sketch"
+        data-testid="toolbar-play-button"
         onClick={() => {
           props.syncFileContent();
           dispatch(startSketch());

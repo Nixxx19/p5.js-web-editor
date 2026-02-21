@@ -52,7 +52,7 @@ const ErrorModal = ({ type, service, closeModal }) => {
   }
 
   return (
-    <div className="error-modal__content">
+    <div className="error-modal__content" data-testid="error-modal-content">
       {(() => { // eslint-disable-line
         if (type === 'forceAuthentication') {
           return forceAuthentication();

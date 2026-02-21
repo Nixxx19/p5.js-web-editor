@@ -46,6 +46,7 @@ Many files still don't have tests, so **if you're a new contributor, this is a g
   - [Tips](#tips)
   - [Files to Start With](#files-to-start-with)
   - [More Resources](#more-resources)
+  - [E2E selectors](#e2e-selectors)
   - [References](#references)
   - [Special Thanks](#special-thanks)
 
@@ -83,6 +84,17 @@ $ npm run test -- Sketchlist.test.js -u
 ```
 
 Find more commands in the [Jest documentation](https://jestjs.io/docs/cli).
+
+-----
+Run end-to-end (E2E) tests (Cypress). Start the app with `npm run start` first (e.g. on port 8000; set `BASE_URL` if different).
+```
+$ npm run test:e2e
+```
+Interactive E2E runner: `npm run e2e`. E2E tests live in `cypress/e2e/` and are not run by `npm run test`. See [E2E and core user flows](e2e_user_flows.md) for the list of user flows and [E2E selectors](#e2e-selectors) below.
+
+## E2E selectors
+
+For E2E tests we use **`data-testid`** on key UI containers and interactive elements (toolbar, editor, preview, save button, modals) so that tests stay stable when copy or i18n changes. Add `data-testid` only where needed for E2E; avoid over-adding. Prefer semantic, stable IDs (e.g. `toolbar`, `nav-file-save`, `error-modal`). Where the test must assert on specific user-facing text (e.g. "Sketch saved" or sign-in prompt text), use visible text in addition to or instead of `data-testid`.
 
 ## Testing Methods
 
